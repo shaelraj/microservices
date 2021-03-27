@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,8 +28,13 @@ public class ExternalCargoRoutingService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
-	private DiscoveryClient discoveryClient;
+	/*
+	 * @Autowired private LoadBalancerClient loadBalancerClient;
+	 */
+	
+	/*
+	 * @Autowired private DiscoveryClient discoveryClient;
+	 */
 
 	/**
 	 * The Booking Bounded Context makes an external call to the Routing Service of
@@ -40,15 +46,24 @@ public class ExternalCargoRoutingService {
 	 */
 	public CargoItinerary fetchRouteForSpecification(RouteSpecification routeSpecification) {
 
-		List<ServiceInstance> serviceInstances=discoveryClient.getInstances("routing-service");
-    	URI uri=serviceInstances.get(0).getUri();
-    	
-    	System.err.println("URI= "+uri);
+		/*
+		 * List<ServiceInstance>
+		 * serviceInstances=discoveryClient.getInstances("routing-service"); URI
+		 * uri=serviceInstances.get(0).getUri();
+		 */
+		
+		/*
+		 * ServiceInstance serviceInstance =
+		 * loadBalancerClient.choose("routing-service"); URI uri =
+		 * serviceInstance.getUri();
+		 * 
+		 * System.err.println("URI= "+uri);
+		 */
     	
     	
     	
     	 final String REST_URI
-         = uri+"/cargorouting/optimalRoute?origin={origin}&destination={destination}&deadline={deadline}";
+         = "http://routing-service"+"/cargorouting/optimalRoute?origin={origin}&destination={destination}&deadline={deadline}";
 
 		System.out.println(
 				"ExternalCargoRoutingService.fetchRouteForSpecification()======hitting cargorouting service=========");
