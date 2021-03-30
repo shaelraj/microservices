@@ -1,0 +1,16 @@
+spring:  
+  cloud:
+    config:
+      server:   
+#        jdbc: for  db
+#          sql:     
+        git:
+          uri: https://github.com/shaelraj/ms-properties
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest  
+          
+server:
+  port: 4000
